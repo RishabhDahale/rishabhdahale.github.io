@@ -15,7 +15,3 @@ gem 'jekyll-twitter-plugin'
 gem 'jemoji'
 gem 'unicode_utils'
 gem 'webrick'
-
-group :jekyll_plugins do
-  gem 'jekyll'
-end
