@@ -35,9 +35,6 @@ jobs:
         gem uninstall uri -a -x # Uninstall any existing uri versions
         gem install uri -v '0.13.0'
 
-    - name: Show installed gems
-      run: bundle show jekyll-responsive-image
-
     - name: Install dependencies
       run: |
         gem update --system
@@ -45,6 +42,11 @@ jobs:
         bundle config set --local without 'development test'
         bundle config set path 'vendor/bundle'
         bundle install --jobs 4 --retry 3
+
+    - name: Show installed gems
+      run: |
+        bundle show jekyll-responsive-image
+        bundle list
 
     - name: Setup deploy options
       id: setup
