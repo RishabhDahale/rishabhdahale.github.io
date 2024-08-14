@@ -7,7 +7,7 @@ group :jekyll_plugins do
     gem 'jekyll-feed'
     gem 'jekyll-github-metadata'
     gem 'jekyll-paginate-v2'
-    # gem 'jekyll-responsive-image'
+    gem 'jekyll-responsive-image'
     gem 'jekyll-scholar'
     gem 'jekyll-sitemap'
     gem 'jekyll-target-blank'
@@ -15,5 +15,5 @@ group :jekyll_plugins do
     gem 'jemoji'
     gem 'unicode_utils'
     gem 'webrick'
-    gem 'github-pages'
+    # gem 'github-pages'
 end
