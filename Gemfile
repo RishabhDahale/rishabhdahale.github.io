@@ -15,7 +15,5 @@ group :jekyll_plugins do
     gem 'jemoji'
     gem 'unicode_utils'
     gem 'webrick'
-    gem 'github-pages'
-    # gem 'uri', '~> 0.13.0'
-
+    # gem 'github-pages'
 end
