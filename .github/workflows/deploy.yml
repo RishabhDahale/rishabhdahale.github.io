@@ -16,10 +16,12 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.0.2'
+
     - name: Enable bundler cache
       uses: actions/cache@v2
       with:
@@ -27,17 +29,20 @@ jobs:
         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-gems-
+
     - name: Install required uri version
-        run: |
-          gem uninstall uri -a -x # Uninstall any existing uri versions
-          gem install uri -v '0.13.0'
+      run: |
+        gem uninstall uri -a -x # Uninstall any existing uri versions
+        gem install uri -v '0.13.0'
+
     - name: Install dependencies
-        run: |
-          gem update --system
-          gem install bundler
-          bundle config set --local without 'development test'
-          bundle config set path 'vendor/bundle'
-          bundle install --jobs 4 --retry 3
+      run: |
+        gem update --system
+        gem install bundler
+        bundle config set --local without 'development test'
+        bundle config set path 'vendor/bundle'
+        bundle install --jobs 4 --retry 3
+
     - name: Setup deploy options
       id: setup
       run: |
@@ -50,7 +55,9 @@ jobs:
           echo "::set-output name=SRC_BRANCH::${GITHUB_REF#refs/heads/}"
         fi
         echo "::set-output name=DEPLOY_BRANCH::gh-pages"
+
     - name: Deploy website 
-      run:  yes | bin/deploy --verbose ${{ steps.setup.outputs.NO_PUSH }}
-                    --src ${{ steps.setup.outputs.SRC_BRANCH }} 
-                    --deploy ${{ steps.setup.outputs.DEPLOY_BRANCH }} 
+      run: |
+        yes | bin/deploy --verbose ${{ steps.setup.outputs.NO_PUSH }} \
+                         --src ${{ steps.setup.outputs.SRC_BRANCH }} \
+                         --deploy ${{ steps.setup.outputs.DEPLOY_BRANCH }}
