@@ -35,6 +35,9 @@ jobs:
         gem uninstall uri -a -x # Uninstall any existing uri versions
         gem install uri -v '0.13.0'
 
+    - name: Show installed gems
+      run: bundle show jekyll-responsive-image
+
     - name: Install dependencies
       run: |
         gem update --system
