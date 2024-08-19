@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://rishabhdahale.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://rishabhdahale.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-08-19T18:21:20+00:00</updated><id>https://rishabhdahale.github.io/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+</subtitle><entry><title type="html">Audio Steganograhy - Unlocking the Secrets in Sound</title><link href="https://rishabhdahale.github.io/blog/2024/audio_steganography/" rel="alternate" type="text/html" title="Audio Steganograhy - Unlocking the Secrets in Sound" /><published>2024-08-17T09:00:00+00:00</published><updated>2024-08-17T09:00:00+00:00</updated><id>https://rishabhdahale.github.io/blog/2024/audio_steganography</id><content type="html" xml:base="https://rishabhdahale.github.io/blog/2024/audio_steganography/"><![CDATA[<p>As part of a course project, we embarked on an intellectually stimulating exploration of audio steganography, a field that intricately blends data security, digital signal processing, and machine learning. This project challenged us to uncover the hidden possibilities within everyday sounds. In this blog post, we want to take you through our comprehensive journey—from understanding the fundamentals to learning about deep learning-based techniques in audio steganography.</p>
+
+<h1> The Fascinating World of Audio Steganography </h1>
+
+<p>Audio steganography is a powerful and fascinating technique that allows the embedding of secret messages within audio files, making them invisible (or inaudible) to unintended recipients. Unlike cryptography, which focuses on scrambling the content of a message, steganography goes a step further by hiding the very existence of the message. In the context of audio files, this involves embedding information in such a way that the modifications are imperceptible to human listeners. The primary challenge is to strike a balance between hiding capacity (the amount of information that can be embedded) and the imperceptibility of the changes to the original audio.</p>
+
+<p>In the world of steganography, audio presents a unique medium due to its rich and complex structure. Audio signals offer a lot of redundant space, which can be exploited to embed hidden information. However, this comes with its own set of challenges, primarily ensuring that the embedded information does not degrade the quality of the audio to a noticeable extent.</p>
+
+<p>With the rapid adoption of digital technologies and the internet, data security has become a paramount concern. Methods like cryptography, watermarking, and steganography are often employed to protect sensitive information. While cryptography scrambles the data, making it unintelligible without a decryption key, and watermarking embeds information to assert ownership, steganography operates on a different principle. It hides the data in plain sight—or sound—preventing anyone from even suspecting that sensitive information exists.</p>
+
+<h1> Understanding the Basics: Traditional vs. Modern Techniques </h1>
+
+<p>Before diving into the deep learning-based approach, it was essential to understand the traditional methods of audio steganography. These techniques can be broadly classified into time-domain and frequency-domain methods.</p>
+
+<ul>
+  <li>
+    <p><strong>Time-Domain Techniques:</strong> These methods embed information directly in the time-domain samples of the audio signal. A classic example is the Least Significant Bit (LSB) method, where the LSB of each audio sample is replaced with the bits of the secret message. While this method offers high hiding capacity, it is susceptible to detection and noise.</p>
+  </li>
+  <li>
+    <p><strong>Frequency-Domain Techniques:</strong> These techniques operate on the transform domain, such as the Discrete Cosine Transform (DCT) or the Discrete Wavelet Transform (DWT). They offer better imperceptibility compared to time-domain methods but generally have lower hiding capacity. The idea is to modify the frequency components of the audio signal, which are less perceptible to human hearing.</p>
+  </li>
+</ul>
+
+<h1> Implementing a Deep Learning-Based Approach </h1>
+
+<p>The project we embarked on was inspired by a paper by Kong et al., which introduced a novel approach to audio steganography using adversarial examples. The core idea was to use a trained Automatic Speech Recognition (ASR) model to hide information within an audio signal by introducing small, imperceptible perturbations. These perturbations are carefully crafted so that when the modified audio is passed through the ASR model, it decodes into the hidden message.</p>
+
+<p><strong>1. Training the ASR Model</strong></p>
+
+<p>The first step in the project was to train an ASR model capable of recognizing phonemes—the building blocks of speech. We chose a convolutional-recurrent neural network architecture, which is well-suited for sequence-to-sequence tasks like speech recognition. The model was trained on the TIMIT dataset, a widely used corpus in the speech processing community. The architecture consisted of convolutional layers for feature extraction followed by recurrent layers (GRU) for capturing temporal dependencies in the speech signal.</p>
+
+<p>Training this model involved using the Connectionist Temporal Classification (CTC) loss function, which is designed for sequence alignment tasks. Once the model was trained and validated, its weights were frozen, making it ready for the steganography experiments.</p>
+
+<p><strong>2. Encoding Information</strong></p>
+
+<p>The next step was to develop the encoding process. Given an input audio recording and a list of phonemes (which represent the secret message), the goal was to find a perturbation that, when added to the audio, would cause the ASR model to decode the hidden message. The challenge was to ensure that these perturbations were imperceptible to human listeners.</p>
+
+<p>To achieve this, we employed an optimization approach where the objective was to minimize the amplitude of the perturbation (measured using the L∞ norm) while ensuring that the ASR model correctly decoded the hidden message. The perturbation was iteratively adjusted using the Adam optimizer, and the process was repeated until the desired level of imperceptibility was achieved.</p>
+
+<p><strong>3. Evaluation Using PESQ</strong></p>
+
+<p>To quantify the impact of the perturbations on audio quality, we used the Perceptual Evaluation of Speech Quality (PESQ) score, which is a standard metric in the audio processing field. PESQ evaluates the degradation of speech quality based on human hearing characteristics. The goal was to achieve a high PESQ score, indicating that the perturbations were not noticeable.</p>
+
+<h1> Experimentation and Key Findings </h1>
+
+<p>We conducted extensive experiments to explore various aspects of the steganography technique. Here are some of the key findings:</p>
+
+<p><strong>1. Impact of Carrier Audio Quality</strong></p>
+
+<p>One of the most interesting observations was the impact of the carrier audio’s quality on the steganography process. Noisy audio files, such as those from popular media clips like “Breaking Bad” and “Oppenheimer,” provided excellent camouflage for the hidden messages. The existing noise in these audio files made it easier to hide the perturbations, resulting in higher PESQ scores. In contrast, cleaner audio files from the TIMIT dataset were more challenging, as any perturbation was more noticeable.</p>
+
+<p><strong>2. Time-Domain vs. Frequency-Domain Perturbations</strong></p>
+
+<p>While the initial experiments focused on perturbations in the time domain, we also explored the possibility of embedding information in the frequency domain. This approach involved modifying the log spectrogram of the audio signal and then inverting it to obtain the time-domain audio. However, this approach faced challenges due to the loss of phase information during the inversion process, leading to lower PESQ scores compared to time-domain perturbations.</p>
+
+<p><strong>3. Robustness to Noise</strong></p>
+
+<p>To test the robustness of the steganography technique, we introduced Gaussian noise to the perturbed audio signals, simulating a noisy transmission channel. As expected, the addition of noise significantly reduced the PESQ scores, highlighting the need for further research into making the technique more robust against noisy environments. One potential avenue for future work is to train a discriminator model that can distinguish between noise and perturbations, thereby improving the robustness of the steganographic method.</p>
+
+<p><strong>4. Complexity of Encoded Text</strong></p>
+
+<p>Another fascinating aspect was the relationship between the complexity of the encoded text and the difficulty of finding the right perturbation. We found that texts with higher perplexity (i.e., more complex and less predictable phoneme sequences) were more challenging to encode. This finding has important implications for the type of information that can be securely embedded using this technique.</p>
+
+<h1> Reflections and Future Directions </h1>
+
+<p>Looking back on this project, we are struck by the intricate balance between data security and perceptual quality in the field of audio steganography. The deep learning-based approach provided a powerful tool for embedding information in audio signals, but it also opened up new challenges, particularly in ensuring robustness and imperceptibility.</p>
+
+<p>As we look to the future, there are several exciting directions to explore. One potential avenue is to develop techniques that are immune to noisy transmission channels, allowing the encoded information to be reliably recovered even in adverse conditions. Another promising direction is to refine the frequency-domain perturbation approach, possibly by incorporating psychoacoustic principles that take advantage of the human auditory system’s characteristics.</p>
+
+<p>Additionally, exploring different ASR models and architectures could lead to more efficient encoding processes, particularly if we can find models that are more susceptible to adversarial attacks. The goal would be to create a steganographic technique that is both secure and practical, capable of being deployed in real-world scenarios where data security is paramount.</p>
+
+<h1> Conclusion </h1>
+
+<p>Our journey into the world of audio steganography has been one of discovery, challenge, and innovation. From understanding the basics of traditional steganography techniques to implementing a cutting-edge deep learning-based approach, this project has deepened our appreciation for the complexities of data security in the digital age.</p>
+
+<p>We hope this comprehensive account of our experiences provides valuable insights for anyone interested in the field of audio steganography or the broader area of secure communication. As technology continues to evolve, the need for innovative data protection methods will only grow, and we are excited to be at the forefront of this fascinating field. Whether you are a fellow researcher, a student, or simply someone curious about the hidden potential of everyday sounds, we invite you to explore the possibilities of audio steganography and join us on this exciting journey of discovery.</p>
+
+<p>You can learn more about this in this <a href="https://github.com/methi1999/stego-audio/blob/master/final_presentation.pptx">presentation</a> or <a href="https://rishabhdahale.github.io/assets/pdf/audio_stego.pdf">report</a>.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Dive into my exploration of audio steganography, where I uncover how deep learning can be used to hide secret messages within audio files. From traditional methods to innovative techniques, discover the challenges and breakthroughs in securely embedding data in sound.]]></summary></entry><entry><title type="html">Exploring the Future of Music with AI - My Journey into Automatic Drum Accompaniment Generation</title><link href="https://rishabhdahale.github.io/blog/2024/music_gen/" rel="alternate" type="text/html" title="Exploring the Future of Music with AI - My Journey into Automatic Drum Accompaniment Generation" /><published>2024-08-13T09:00:00+00:00</published><updated>2024-08-13T09:00:00+00:00</updated><id>https://rishabhdahale.github.io/blog/2024/music_gen</id><content type="html" xml:base="https://rishabhdahale.github.io/blog/2024/music_gen/"><![CDATA[<h1> Introduction </h1>
+
+<p>As a technology enthusiast and music lover, I’ve always been intrigued by the idea of combining these two passions. The notion that artificial intelligence could assist in composing music—or even generate it autonomously—has captivated me for years. This curiosity led me to undertake a project that blends AI with music: Automatic Drum Accompaniment Generation from Melody.</p>
+
+<p>In this blog post, I want to take you through my journey of creating a system that generates drum patterns for a given melody. This project challenged my technical skills and pushed the boundaries of what I believed AI could achieve in the realm of creativity.</p>
+
+<p><img src="/assets/img/posts/music_gen/drum_set_1.webp" alt="Drum set" style="width:300px; align-content: center;" /></p>
+
+<!-- *Add Image: A creative image of musical notes, drums, or a combination of AI and music symbols.* -->
+
+<h1> Challenges </h1>
+
+<p>Music composition is not just about arranging notes; it’s about emotion, rhythm, and creativity. Drummers, for instance, do more than just keep time—they add flavor to the music, making it dynamic and engaging. The challenge I faced was teaching an AI to replicate this human creativity. How could I develop a system that not only understands the structure of music but also adds those subtle yet impactful drum fills and improvisations?</p>
+
+<!-- *Add Image: An image showing a drummer playing with a band, highlighting the complexity of drum patterns.* -->
+
+<h1> Approach </h1>
+
+<p>To address this challenge, I turned to the Transformer model—a neural network architecture that’s revolutionizing natural language processing and, increasingly, music generation. My goal was to create a system that could take a melody played by instruments like Piano, Guitar, Bass, and Strings, and generate an accompanying drum pattern.</p>
+
+<p>The initial attempts were promising but not perfect. While the model could generate basic drum patterns that aligned with the melody, it struggled with the creative aspects—particularly with generating fills and improvisations that are so crucial in drumming.</p>
+
+<!-- *Add Image: A visual representation of a Transformer model or a diagram showing the sequence-to-sequence architecture.* -->
+<!-- <img src="/assets/img/posts/music_gen/System-overview.png" alt="Drum set" style="height:300px; align-content: center;"> -->
+
+<h1> Innovating with BERT-Inspired Models </h1>
+
+<p>Realizing that traditional Transformer models had limitations, I decided to experiment with a BERT-inspired approach. BERT, a model originally designed for natural language processing, excels at understanding context and filling in gaps. This inspired me to create a “novelty function” to detect and quantify the extent of improvisation in a drum pattern relative to its neighboring bars.</p>
+
+<p>By training the model to recognize these moments of creativity and then using an in-filling technique, I was able to generate more dynamic and musically coherent drum patterns. This approach was key in moving beyond simple repetition and into the realm of true musical expression.</p>
+
+<!-- *Add Image: A diagram or flowchart showing the BERT-inspired in-filling approach and how it integrates with the drum generation process.* -->
+
+<h1> Evaluating Results </h1>
+
+<p>Evaluating AI-generated music is a complex task, combining both objective metrics and subjective opinions. Objectively, I measured the rhythmic consistency, distribution of drum hits, and other musical patterns. Subjectively, I sought feedback from musicians to assess the musicality of the generated patterns.</p>
+
+<p>The results were encouraging. The model managed to maintain the groove while introducing subtle variations that made the drum patterns more engaging. While not perfect, the AI’s output was a significant step forward in achieving a balance between structure and creativity in music generation.</p>
+
+<!-- *Add Image: A side-by-side comparison of a basic drum pattern and a generated pattern with fills/improvisations, possibly using a visual representation like a pianoroll or waveform.* -->
+
+<h1> Reflection and Future Directions </h1>
+
+<p>This project has been a significant learning experience, showing me both the potential and the limitations of AI in music. It reinforced my belief that while AI can assist in the creative process, it still requires guidance and input from humans to reach its full potential.</p>
+
+<p>Moving forward, I plan to explore more advanced data augmentation techniques and experiment with different architectures to improve the model’s ability to generate creative drum fills and improvisations. Additionally, I’m interested in expanding this work to other musical genres or even developing an interactive system that can collaborate with musicians in real-time.</p>
+
+<!-- *Add Image: An image that represents future technology or innovation, possibly something symbolic like a road leading into the horizon or a futuristic city.* -->
+
+<h1> Conclusion </h1>
+
+<p>In conclusion, my journey into automatic drum accompaniment generation has been a rewarding blend of creativity and technology. It’s a project that has pushed me to think differently about both music and AI, and I’m excited to see where this path leads in the future. If you’re interested in the technical details or want to try out the model for yourself, feel free to reach out—I’d love to share more about this exciting field of research.</p>
+
+<p>Thank you for reading, and I hope this glimpse into my project has sparked your curiosity about the potential of AI in music. Stay tuned for more updates as I continue to explore the fascinating world of music generation.</p>
+
+<!-- *Add Image: A summary image or infographic that encapsulates the journey from challenge to solution, possibly with a combination of music and AI elements.* -->
+
+<p>You can find the <a href="https://rishabhdahale.github.io/assets/pdf/DDP_Stage_2_Report.pdf">thesis</a> here.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[AI-driven system that generates dynamic drum accompaniments for melodies, leveraging Transformer and BERT-inspired models to introduce creative fills and improvisations.]]></summary></entry><entry><title type="html">Stochastic Monte Carlo Exploration Starts for POMDPs</title><link href="https://rishabhdahale.github.io/blog/2022/aila-project/" rel="alternate" type="text/html" title="Stochastic Monte Carlo Exploration Starts for POMDPs" /><published>2022-01-06T00:00:00+00:00</published><updated>2022-01-06T00:00:00+00:00</updated><id>https://rishabhdahale.github.io/blog/2022/aila-project</id><content type="html" xml:base="https://rishabhdahale.github.io/blog/2022/aila-project/"><![CDATA[<p><strong>NOTE:</strong> This work is carried out by myself and Nitish Tongia under the supervision of Prof. Shivaram Kalyanakrishnan as course project for course <a href="https://www.cse.iitb.ac.in/~shivaram/teaching/old/cs748-s2021/index.html">CS 748</a> at IIT Bombay.</p>
+
+<p>Monte-Carlo Exploring Starts for POMDP’s (MCESP) is a memory-less, model-free reinforcement learning algorithm that integrates the Monte Carlo exploring starts <a href="#ref1">[1]</a> into a local search of deterministic policy space to perform control tasks in partially observable Markov decision processes (POMDP’s). The novelty in this approach is the introduction of a new action-value function which ensures that the algorithm is theoretically sound and guarantees the convergence to locally optimal policies in some special cases <a href="#ref2">[2]</a>. We implement the algorithm on multiple standard partially observable domains to demonstrate the convergence properties. We then go on to modify the algorithm so that the policy search now works in the space of stochastic policies. We verify the dominance of this modified version empirically over the deterministic version and other stochastic learning algorithms in partially observable domains.</p>
+
+<h1 id="introduction"><a name="section_intro">Introduction</a></h1>
+
+<p>In many realistic situations, the dynamics of the agent’s environment and observations are unknown or only partially known. In such cases, the problem of sequential decision making by intelligent agents is formulated as partially observable Markov decision processes (POMDP). The standard reinforcement learning algorithms such as Q-Learning and Sarsa(\(\lambda\)) ignore the partial observability and treat the observations as the states of a Markov decision problem (MDP). However, the theoretical soundness of such action-value based algorithms is questionable as they can fail to converge even on some very simple problems <a href="#ref3">[3]</a>. Stochastic algorithms that search through a continuous space of stochastic policies by conditioning the action choice on the agent’s immediate observation do actually converge to local optimal policies under appropriate conditions, but data suggests that the learning in these algorithms is much slower as compared to action-value based reinforcement learning algorithms.</p>
+
+<p>The MCESP algorithm gets the best of both approaches by achieving the better empirical performance of the actionvalue based RL algorithms and provide stronger theoretical properties like the stochastic algorithms. It can be interpreted as a local search algorithm that achieves local optimum in the discrete space of policies that maps observation to actions. The novel action-value function in the algorithm is inspired by the work on fixed-point analysis <a href="#ref4">[4]</a>. Based on different choices of free parameters, different ideas from stochastic optimisation can be incorporated.</p>
+
+<p>In model-free POMDP literature, the dominance of stochastic policy learning over deterministic policies has been heavily studied and empirically verified in a large number of independent works. In this direction, the modified version of MCESP, which we call Stochastic MCESP, performs the policy search in the space of stochastic policies. This aims to get closer and closer to the hypothetical optimum memory-less stochastic policy.</p>
+
+<h1 id="problem-formulation"><a name="section_problem_formulation">Problem Formulation</a></h1>
+
+<p>The agent’s environment is modeled as a POMDP with an unknown underlying MDP, but a finite observation set. Based on the trajectory, the agent is required to learn a deterministic policy that maximizes the discounted episodic reward under the assumption that the episodes terminate with certainty under any policy. Later, the search space of policies is extended to a much larger space of stochastic policies. There, the policy search in the continuous space is performed based on the expected value of discounted episodic reward of the trajectory under the stochastic policy.</p>
+
+<h2 id="pomdp"><a name="subsection_problem_pomdp">POMDP</a></h2>
+
+<p>Partially observable markov decision process (POMDP’s) provide a generalised memory-less model for planning under uncertainty represented using \(\{S, A, O, T, \Omega, R, \gamma \}\) where \(S\) is the set of (finite) discrete states, \(A\) is the set of discrete actions, \(O\) is the set of discrete observations providing incomplete/noisy information about state, \(T(s,a,s') = Pr(s_{t+1}=s'\) | \(s_t=s, a_t=a)\) is the transition probability from state \(s\) to \(s'\) on taking action \(a\), \(\Omega(o, s, a) := Pr(o_{t+1} = o\) | \(a_t = a, s_{t+1} = s)\) is the probability of observing \(o\) from state \(s\) after taking action \(a\), \(R(s,a)\) is the reward obtained on taking action \(a\) from state \(s\) and \(\gamma\) is the discount factor.</p>
+
+<h1 id="related-works"><a name="section_related_works">Related Works</a></h1>
+
+<p>In partially observable domains, using standard RL algorithms which treat the observations as if they were the states of an underlying Markov decision problem (MDP) can lead to sub-optimal behaviour or in the worst case, the parameters learned by the RL algorithm can fail to converge or even diverge <a href="#ref5">[5</a>, <a href="#ref6">6]</a>. The theoretical soundness of such algorithms is questionable if the underlying representation of the environment is not fully markov.</p>
+
+<p>A large variety of algorithms which perform different kinds of stochastic gradient descent on a fixed error function have been developed <a href="#ref7">[7</a>, <a href="#ref8">8</a>, <a href="#ref9">9]</a>. These usually condition the action choice on immediate observation plus the state of an internal memory. Empirical evidence suggests that these are much slower than the memory-less RL algorithms because of the added complexity of storing and updating history or some sort of belief states.</p>
+
+<p>The work of <a href="#ref2">[2]</a> on this MCESP algorithm differs from the general approach in this domain by defining a novel action value function which allows us to integrate exploring starts with policy search while still enjoying strong convergence properties. Our contribution of extension of the MCESP algorithm to stochastic policies and the empirical verification of its dominance over standard memory-less approaches like the work done by <a href="#ref10">[10]</a>, to the best of our knowledge, is new.</p>
+
+<h1 id="mcesp"><a name="section_mcesp">MCESP</a></h1>
+
+<p><strong>Note:</strong> Refer to Perkins 2002 <a href="#ref2">[2]</a> for more detials of deterministic MCESP.</p>
+
+<h2 id="neighbouring-policy"><a name="subsection_mcesp_neighbour">Neighbouring Policy</a></h2>
+
+<p>One of the key aspect of MCESP algorithm is its interpretation as a local search algorithm in the space of memory-less policies. In that regard, for a policy \(\pi\), define its neighbouring policy as \(\pi \leftarrow (o, a)\) that is identical to \(\pi\) except that it assigns action \(a\) corresponding to observation \(o\).</p>
+
+<h2 id="action-value-function"><a name="subsection_action_value_func">Action Value Function</a></h2>
+
+<p>For a trajectory \(\tau\), the discounted episodic reward is defined as \(R(\tau) = \sum_{i=0}^{\infty}\gamma^ir_i\). Let an observation \(o\) occurs in trajectory \(\tau\) for the first time at time step \(j\), then we define \(R_{pre-o}(\tau) = \sum_{i=0}^{j-1}\gamma^ir_i\) and \(R_{post-o}(\tau) = \sum_{i=j}^{\infty}\gamma^ir_i\) i.e. the parts of the discounted episodic reward before and after the first occurrence of observation \(o\) respectively. Following this, we define the action value function as the expected post observation return of the neighbouring policy, i.e.</p>
+
+\[Q^{\pi}_{o,a} = E^{\pi \leftarrow (o,a)}\{R_{post-o(\tau)}\}\]
+
+<p>This definition of action value differs from the one in a standard MDP case in three aspects:</p>
+<ol>
+  <li>The notion of a staring state is replaced by the first occurrence of an observation \(o\)</li>
+  <li>After taking the immediate action \(a\), the agent follows a neighbouring policy \(\pi \leftarrow (o,a)\) of policy \(\pi\)</li>
+  <li>The action value function, instead of being the discounted return that follows \(o\), it is the portion of discounted reward following observation \(o\)</li>
+</ol>
+
+<p>This definition of action value function preserves (to some degree) the property of MDP’s that an optimal is necessarily greedy with respect to its action values.</p>
+
+<p><strong>Theorem 1</strong></p>
+
+<p>For all \(\pi\) and \(\pi'=\pi \leftarrow (o,a)\)</p>
+
+\[V^{\pi} + \epsilon \geq V^{\pi'} \iff Q^{\pi}_{o,\pi(o)} + \epsilon \geq Q^{\pi}_{o,a}\]
+
+<p><strong>Proof</strong></p>
+
+\[V^{\pi} + \epsilon \geq V^{\pi'}\]
+
+\[\iff E^{\pi}\{R_{pre-o(\tau)}\} + E^{\pi}\{R_{post-o(\tau)}\} + \epsilon\]
+
+\[\geq E^{\pi'}\{R_{pre-o(\tau)}\} + E^{\pi'}\{R_{post-o(\tau)}\}\]
+
+<p>Now, as the expected discounted reward before first occurrence of observation \(o\) is independent of the action taken from \(o \implies E^{\pi}\{R_{pre-o(\tau)}\} = E^{\pi \leftarrow (o,a)}\{R_{pre-o(\tau)}\}\)</p>
+
+\[\iff  E^{\pi}\{R_{post-o(\tau)}\} + \epsilon \geq E^{\pi \leftarrow (o,a)}\{R_{post-o(\tau)}\}\]
+
+\[\iff  Q^{\pi}_{o,\pi(o)} + \epsilon \geq Q^{\pi}_{o,a}\]
+
+<p>Following these definitions, we say that a policy \(\pi\) is an \(\epsilon\) locally optimal policy if and only if its action value is at-least \(\epsilon\) beter than all its neighbouring policies, i.e. it satisfies \(Q^{\pi}_{o,\pi(o)} + \epsilon \geq Q^{\pi}_{o,a} \forall\) observations \(o\) and actions \(a\).</p>
+
+<h2 id="algorithm"><a name="subsection_algorithm">Algorithm</a></h2>
+
+<p><img src="/assets/img/posts/aila/mcesp.png" alt="MCESP Algorithm" style="width:400px;" /></p>
+
+<p>The algorithm itself can be seen as two independent parts, first between lines (4-7) and second between lines (8-12). Since the environment is only partially observable to the agent, given a policy, the action values themselves are an estimate of the true values as they are approximated using discounted reward of a finite number of trajectories. The first part of the algorithm works on bringing these action value estimates closer and closer to their true values by performing first visit Monte-Carlo updates for each selected pair of observations and actions. Based on the present estimates, the second part of the algorithm performs a policy search and tries to find neighbouring policy which is significantly better (at-least \(\epsilon\) better) than the current policy. This threshold is dependent on the number of policy updates (n) and the number of action-value updates for the selected observation-action pair (\(c_{o,a}\)) after the last policy update.</p>
+
+<p>Based on different observation-action pair selection methods (uniformly at random or in round robin fashion), different learning rate schedules (\(\alpha\)) and different choices for comparison threshold (\(\epsilon\)) functions, different variants of MCSEP can be obtained which differ in their performance, computational complexity and convergence properties. We present three such variations each one of which integrate the MCESP algorithm to incorporate different ideas from stochatic optimisation literature.</p>
+
+<h2 id="mcesp-saa"><a name="subsection_mcesp_saa">MCESP SAA</a></h2>
+
+<p>If the dynamics of the POMDP are unknown to the agent, exact evaluation of any policy is not possible. By generating a fixed number of trajectories(k) under a given policy, an estimate of the policy’s value can be obtained as the average discounted return. This approach is known as Sample Average Approximation <a href="#ref11">[11]</a> in stochastic optimization literature. For larger values of k, the action-value estimates are expected to be accurate and the algorithm is expected to converge to the local-optimal solution.</p>
+
+<p>\(\alpha(n,i) = \dfrac{1}{i + 1}\) and 
+\(\epsilon(n,i,j) = \begin{cases} \infty &amp; i &lt; k \hspace{2mm} or \hspace{2mm} j &lt; k \\ 0 &amp; otherwise \end{cases}\)</p>
+
+<h2 id="mcesp-palo"><a name="subsection_mcesp_palo">MCESP PALO</a></h2>
+
+<p>In finite local neighborhood structure, PALO <a href="#ref12">[12]</a> algorithm is a general method for hill-climbing in the solution space of a stochastic optimization problem. In MCESP-PALO, the decaying learning rate corresponds to simple averaging, and the comparison threshold is based on Hoeffding’s inequality. The algorithm strictly moves towards the local optimal policy and is expected to converge with absolute certainty.</p>
+
+\[\epsilon(n,i,j) =  \begin{cases} 
+(y-x)\sqrt{\dfrac{1}{2i}ln\bigg(\dfrac{2(k_n-1)N)}{\delta_n}\bigg)} &amp; i = j &lt; k_n \\
+\dfrac{\epsilon}{2} &amp; i = j = k_n \\
+\infty &amp; otherwise\\
+\end{cases}\]
+
+<p>\(k_n = \left\lceil {2\dfrac{(y-x)^{2}}{\epsilon^{2}} ln\Big(\dfrac{2N}{\delta_{n}}\Big)}\right\rceil\) ,
+\(\delta_{n} = \dfrac{6\delta}{n^{2}\pi^{2}}\) , 
+\(\alpha(n,i) = \dfrac{1}{i + 1}\)</p>
+
+<h2 id="mcesp-ce"><a name="subsection_mcesp_ce">MCESP CE</a></h2>
+
+<p>Since the action values are stochastic, after any finite number of steps, it is not possible to achieve local optimal policy with absolute certainty. However, it serves good as an indicator of non-optimal policy and thereby suggesting a switch. This ensures that the algorithm with a constant comparison threshold will surely converge to at least a \(\epsilon\)-locally optimal policy. Here, \(\alpha(n,i) = b \times i^{-p}\) and \(\epsilon(n,i,j) = \epsilon_0\)</p>
+
+<p>MCESP-SAA and MCESP-PALO are much more heavier in terms of computational complexity than MCESP-CE. So, due to resource constraints, we kept our focus on producing results for the constant-epsilon version of our algorithm. We took a couple of tasks (one episodic and one continuing) for testing the theoretical claims and verifying their correctness in general. In both of these, the state of the environment was only partially observable to the agent.</p>
+
+<h1 id="various-partially-observable-domains"><a name="section_mcesp_partial_domains">Various Partially Observable Domains</a></h1>
+
+<h2 id="parr-and-russells-grid-world"><a name="subsection_gridworld">Parr and Russell’s Grid World</a></h2>
+
+<p><img src="/assets/img/posts/aila/pnr.png" alt="Parr and Russell's Gridworld" style="width:300px;" /></p>
+
+<p>Parr and Russell’s Grid World <a href="#ref13">[13]</a> is a \(4\times 3\) grid consisting of 11 states and an obstacle state as shown in Figure 1. The environment is only partially observable to the agent as it can sense only the presence of walls to its immediate east and west and whether it is in the goal (+1) or the penalty (-1) state. The agent can take 4 actions for movement in North, South, East and West directions and its moves in the desired direction with probability 0.8 and slips to either sides with probability 0.1 each. A constant reward of -0.04 is received by the agent for each transition except for the transition to terminal states, where it receives +1 for reaching goal state and -1 for reaching penalty state. In this partially observable setting, the agent is required to learn the best memory-less policy which maximises the discounted episodic reward from the start state to the terminal state.</p>
+
+<h2 id="chrismans-space-shuttle-docking-problem"><a name="subsection_shuttle">Chrisman’s Space Shuttle Docking Problem</a></h2>
+
+<p><img src="/assets/img/posts/aila/shuttle.png" alt="Chrisman's Space Shuttle Docking Problem" style="width:400px;" /></p>
+
+<p>Chrisman’s Space Shuttle Docking Problem <a href="#ref14">[14]</a> comprises of two stations as shown in Figure 2. The stations are observable to the agent as least recently visited (LRV) or most recently visited (MRV) based on the most recent docking of the shuttle to one of the stations. The agent can sense only 5 different observations in this 8 state POMDP. It can observe as being in front of or being docked to one of the stations(MRV or LRV), and seeing nothing in front. Out of the three actions that agent can take, two (go-forward and turn-around) are deterministic whereas action backup succeed with probability less than 1. Action backup has different effects based  on the true state of the shuttle. If the true state of the shuttle is the middle space, then action backup succeeds with probability 0.8, no effect with probability 0.1 and the effect of turn-around with probability 0.1. If the shuttle is in front of one of the stations with its back facing towards it, action backup will result in successful docking with probability 0.7 and no effect with probability 0.3. If the shuttle is already docked into one of the stations, action backup will cause the the station to deterministically change to the MRV station. If the shuttle is facing one of the stations, then action backup results in successful docking with probability 0.3, results in no effect with probability 0.4 and the effect of turn-around with probability 0.3. As the name suggests, action go-forward propels the shuttle in the forward direction and action turn-around rotates the shuttle by 180 degrees, i.e. reverse the direction of the shuttle. A reward of +10 is awarded for successful docking into the LRV (using action backup), a penalty of -3 is incurred for bumping into the station (taking action go-forward while facing the station). A constant penalty of -0.004 is incurred to incentivise the agent to perform the task as quickly as possible. The goal for the agent is to learn a memory-less deterministic policy that continuously docks to the two stations in an alternate manner.</p>
+
+<h1 id="stochastic-mcesp"><a name="section_stichastic_mcesp">Stochastic MCESP</a></h1>
+
+<p>The dominance of stochastic policies over deterministic ones has been empirically proven in a large number of independent works and is widely accepted in pomdp literature with respect to memory-less policies. In this regard, we modified the MCESP algorithm to perform the policy search in the continuous space of stochastic policies while still maintaining the core structure of the algorithm. It differs from the deterministic version in two key aspects. First, the neighbouring policy \(\pi \leftarrow (o,a)\) is now defined on the basis of a little perturbation (\(\delta\)) in the conditional probability for an action \(a\) given an observation \(o\). And second, the policy search step is now based on the comparison between the expected values of the action value functions.</p>
+
+<p><img src="/assets/img/posts/aila/mcesp_stoch.png" alt="Stochastic MCESP" style="width:400px;" /></p>
+
+<p>where \(\pi \leftarrow (o,a) = Normalised(\pi')\) and
+\(\pi'(a'|o') = \begin{cases} 
+\hspace{10pt} \pi(a'|o') &amp; if \hspace{7pt} (o',a') \neq (o,a)\\
+\pi(a'|o')+\delta &amp; \hspace{10pt} otherwise\\
+\end{cases}\)</p>
+
+<h1 id="results"><a name="section_results">Results</a></h1>
+
+<p>The plots below shows the comparison between the deterministic algorithm (MCESP-CS), the stochastic algorithm (Williams and Singh <a href="#ref10">[10]</a>) and our modified algorithm (Stochastic MCESP) for Parr and Russell Grid World and Chrisman’s Shuttle problem.</p>
+
+<p><img src="/assets/img/posts/aila/pnr_comparison.png" alt="Stochastic MCESP" style="width:600px;" /></p>
+
+<p><img src="/assets/img/posts/aila/shuttle_comparison.png" alt="Stochastic MCESP" style="width:600px;" /></p>
+
+<p>We can see from both the plots that our modified algorithm dominates both the deterministic version of MCESP and the algorithm by Williams and Singh in terms of value of the final optimal policy when restricted to same amount of training (by fixing the number of interactions with the environment). We can observe that the algorithm by Williams and Singh achieves convergence earlier, but it is nowhere near to the optimal value to which stochastic MCESP converges. Also, the amount of tuning and time taken by Willams and Singh’s is much more than by both the versions of MCESP.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>We begin with presenting a novel algorithm MCESP, a model-free memory-less reinforcement learning algorithm for POMDP’s. We ran different variants of the algorithm on various benchmarks <a href="#ref15">[15]</a> in partially observable domains and verify the theoretical claims and convergence properties. The major drawback in our algorithm is that a lot of times, we found that the algorithm is converging to a locally and not globally optimal policy. That is the trade off that the algorithm has in order to enjoy such theoretical guarantees. We focused on one episodic and one continuous task. This can be further extended to see how these claims generalize for much more complex domains.</p>
+
+<p>Since we know that memory-less stochastic policies in general work much better than deterministic ones for POMDP’s, we modified our algorithm so that now it performs the policy search in the space of stochastic policies without perturbing the core structure of the algorithm. We then compare this with the deterministic version and other stochastic learning algorithms to verify its superior performance. Still, our work is by no means completely refined in all its aspects. Several improvements might be possible like using complex strategies for exploration techniques instead of simple round-robin or selection observation-action uniformly at random.</p>
+
+<h1 id="references"><a name="section_reference">References</a></h1>
+<p><a name="ref1">1.</a> S. Sutton, R., and G. Barto, A. 2014. Reinforcement learning: An introduction second edition: 2014, 2015.</p>
+
+<p><a name="ref2">2.</a> Perkins, T. J. 2002. Reinforcement learning for pomdps based on action values and stochastic optimization. 199–204.</p>
+
+<p><a name="ref3">3.</a> Gordon, G. J. 1996. Chattering in sarsa(lambda) - a cmu learning lab internal report.</p>
+
+<p><a name="ref4">4.</a> Pendrith, M. D., and Mcgarity, M. J. 1998. An analysis of direct reinforcement learning in non-markovian domains. 421–429.</p>
+
+<p><a name="ref5">5.</a> Whitehead, S. 1992. Reinforcement learning for the adaptive control of perception and action.</p>
+
+<p><a name="ref6">6.</a> Baird, L. 1995. Residual algorithms: Reinforcement learning with function approximation. 30–37.</p>
+
+<p><a name="ref7">7.</a> Williams, R. J. 1992. Simple statistical gradient-following algorithms for connectionist reinforcement learning. Machine Learning 8:229–256.</p>
+
+<p><a name="ref8">8.</a> Baird, L., and Moore, A. 1998. Gradient descent for general reinforcement learning. 968–974.</p>
+
+<p><a name="ref9">9.</a> Sutton, R. S.; McAllester, D. A.; Singh, S. P.; Mansour, Y.; et al. 2000. Policy gradient methods for reinforcement learning with function approximation. 99:1057–1063.</p>
+
+<p><a name="ref10">10.</a> Williams, J. K., and Singh, S. 1999. Experimental results on learning stochastic memoryless policies for partially observable markov decision processes. 1073–1079.</p>
+
+<p><a name="ref11">11.</a> Kleywegt, A. J.; Shapiro, A.; and Homem-de Mello, T. 2002. The sample average approximation method for stochastic discrete optimization. SIAM J. on Optimization 12(2):479–502.</p>
+
+<p><a name="ref12">12.</a> Greiner, R. 1995. Palo: A probabilistic hillclimbing algorithm. Artificial Intelligence 83:1–2.</p>
+
+<p><a name="ref13">13.</a> Parr, R., and Russell, S. 1995. Approximating optimal policies for partially observable stochastic domains. 95:1088–1094.</p>
+
+<p><a name="ref14">14.</a> Chrisman, L. 1992. Reinforcement learning with perceptual aliasing: The perceptual distinctions approach. 1992:183–188</p>
+
+<p><a name="ref15">15.</a> Cassandra, A. R. 2003. Pomdp examples. Available at <a href="http://www.pomdp.org/examples/">pomdp.org</a></p>
+
+<!-- <a name="ref16">16.</a>  -->
+
+<p><strong>To cite this article:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@article{smcesp2021,
+  title={Stochastic Monte Carlo Exploration Starts for POMDPs},
+  author={Dahale, Rishabh and Tongia, Nitish},
+  year={2021}
+}
+</code></pre></div></div>]]></content><author><name></name></author><summary type="html"><![CDATA[Memory-less, model-free method for achieving optimal stochastic policy for Partially Observable Markov Decision Processes (POMDPs)]]></summary></entry><entry><title type="html">GNU Radio - Embedded Python Block</title><link href="https://rishabhdahale.github.io/blog/2021/gnu-radio/" rel="alternate" type="text/html" title="GNU Radio - Embedded Python Block" /><published>2021-12-28T16:40:00+00:00</published><updated>2021-12-28T16:40:00+00:00</updated><id>https://rishabhdahale.github.io/blog/2021/gnu-radio</id><content type="html" xml:base="https://rishabhdahale.github.io/blog/2021/gnu-radio/"><![CDATA[<p>GNU Radio is a open source and free software which provides signal processing blocks to implement software radio. This is a very good software which can do both software simulation and even connect to external hardware. However, I found that the documentation of some of the blocks is not upto the mark (no offense to the developers). One such block is the Embedded Python Block. This is one of the most powerful blocks present in the software as it allows you to do custom calculations. However some very minute details are missing from the official wiki. I had made a doc with details of getting started with this block for one of the graduate level lab at IIT Bombay. In this blog post I’ll be sharing the same.</p>
+
+<h1>Embedded Python Block</h1>
+
+<p>GNU Radio provides an Embedded python block to do custom processing of the signals. This block is available under the name of “Python Block”.</p>
+
+<p><img src="/assets/img/posts/gnu_radio/gnu1.png" alt="GNU Python Block" style="width:500px;" /></p>
+
+<p>By default, this block performs scaling of the signal. To revise the python code for this block follow the following steps:</p>
+<ol>
+	<li>Double click on the block OR right click and choose properties </li>
+	<li>Select “Open in Editor”
+		<ol>
+			<li>Note: This will open an prompt asking editor to select. Select editor of your choice</li>
+		</ol>
+	</li>
+	<li>This will open a python script with the contents shown in the figure below
+		<img src="/assets/img/posts/gnu_radio/gnu2.png" alt="GNU Python Block" style="width:500px;" />
+	</li>
+	<li>There are 2 functions which you should edit: <i>__init__</i> and <i>work</i> of the blk class. Note that this is class is a child of gnuradio’s <i>sync_block</i> class which will provide some of the functionalities.
+	</li>
+</ol>
+
+<h2><i>__init__</i> function</h2>
+
+<ol>
+	<li><strong>name="Embedded Python Block"</strong> is the name that will appear in the GNU radio’s GUI. You can change this name as per your wish</li>
+	<li>in_sig=[np.complex64] defined the input type to the block. You can change this to one of the following type: np.int16 which is basically short data type, np.int32 which is int data type, np.float32 or np.float64 which are float data type and np.complex64. To add these parameters you can simply change the line as follows:<br />
+		<i>in_sig = [np.complex64, np.float32, np.int16]</i><br />
+	This will add 3 inputs with the specified input data type <br />
+	<img src="/assets/img/posts/gnu_radio/gnu3.png" alt="GNU Python Block" style="width:200px;" />
+	</li>
+	<li>out_sig=[np.complex64] works the same was as in_sig but with the output ports</li>
+	<li><strong>Adding Parameters:</strong> To add the parameters to the block, simply add them to the input arguments of the <i>__init__</i> function. Make sure to add them as class variables if necessary</li>
+	<li>Apart from the above points you can use the <i>__init__</i> function as a per your wish following the rules of python programming language</li>
+</ol>
+
+<h2><i>work</i> function</h2>
+<p>This is the function where code for processing the inputs and outputs would be written. This function have 2 arguments which should <strong>not</strong> be changed:</p>
+
+<h3><strong>input_items</strong> &amp; <strong>output_items</strong></h3>
+
+<p>input_items is a list of numpy array of input signals. The inputs will be arranged as they are defined in the in_sig in <strong>init</strong> function. You can use various numpy functions and their it’s vectorization to your make your code run fast. Output_items follow the same logic with outputs.<br />
+For e.g. below is a simple code which scales the input and clips it’s amplitude<br /></p>
+
+<p><img src="/assets/img/posts/gnu_radio/gnu4.png" alt="GNU Python Block" style="width:500px;" /></p>
+
+<p>The work function returns as output an integer indicating the number of items in the list output_items. By default it returns len(output_items) which is the max length of output items(8192 by default). This means every call to the work function processes a block of input of len(output items) at a time.</p>
+
+<h2>Debugging Embedded Python Block</h2>
+
+<p>This is a very tricky task. I could not find log files of GNU radio. It does not show the error in the GUI. If there is an error in your EPB block code, the GNU radio will still create the flow-graph but the output of the EPB block will be taken as a zero vector. To avoid this, the only way I can suggest for debugging for now is to write a separate standalone script for checking the functionalities of your work function.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Getting started with GNU Radio's Embedded Python Block]]></summary></entry><entry><title type="html">My First Blog Post</title><link href="https://rishabhdahale.github.io/blog/2021/first-post/" rel="alternate" type="text/html" title="My First Blog Post" /><published>2021-11-24T16:40:16+00:00</published><updated>2021-11-24T16:40:16+00:00</updated><id>https://rishabhdahale.github.io/blog/2021/first-post</id><content type="html" xml:base="https://rishabhdahale.github.io/blog/2021/first-post/"><![CDATA[<p>Hello there. I’m Rishabh Dahale. When writing this post, I’m a final year undergraduate student at the Department of Electrical Engineering at IIT Bombay. I’m pursuing a Dual Degree program with a specialization in Communication and Signal Processing. For my final year thesis project, I’m working under <a href="https://www.ee.iitb.ac.in/web/people/faculty/home/prao">Prof. Preeti Rao</a> on Automatic-Music Generation using Reinforcement Learning. 
+Through this blog, I intend to share my projects and, at times, some other interesting research papers and topics I come across. You can fork the original repo from <a href="https://github.com/alshedivat/al-folio">this link</a>.</p>
+
+<p>This is a short post linked to a colab notebook with image style transfer using neural network code. This is because if you check one of my picture <a href="/assets/img/prof_pic.png">here</a>, you will notice it’s edited. The catch is that I didn’t apply the filter on my own or use very sophisticated software like adobe lightroom or anything for it. Instead, I simply gave my image and another image whose style I wanted on my picture to a neural network. More specifically, I have used the method proposed in <a href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Gatys_Image_Style_Transfer_CVPR_2016_paper.pdf">this paper</a>. You can find the code for this implementation in this <a href="https://github.com/RishabhDahale/Image-Style-Transfer-using-CNN">github repo</a>. Some might say it’s a bit old method for 2021, and more robust methods are published, so why not use them. Well, I implemented this about 2 years ago and had the code with me. And moreover, I use google colab for running such intensive operations. Newer methods would surely give better results but with added time cost.</p>
+
+<p><a href="https://colab.research.google.com/drive/1Z170lOzHUs8ZGCcnI3_HfF8mKjsXWvia?usp=sharing"><strong>This is the link</strong></a> to the colab notebook for the same if you want to run it. You will have to copy the notebook before running it, as I have shared the view-only version.</p>
+
+<p>Can’t wait to share my thoughts through this blog!</p>]]></content><author><name></name></author><summary type="html"><![CDATA[My first blog post!]]></summary></entry></feed>

@@ -2,7 +2,7 @@
 <html lang="en">
 
   <head>
-    <meta http-equiv="refresh" content="3; url=https://rishabhdahale.github.io/" />
+    
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +12,7 @@
   Rishabh  Dahale
 
 
-  | Page not found
+  | Exploring the Future of Music with AI - My Journey into Automatic Drum Accompaniment Generation
 
 </title>
 <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
@@ -38,7 +38,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>😄</text></svg>">
 
 <link rel="stylesheet" href="/assets/css/main.css">
-<link rel="canonical" href="https://rishabhdahale.github.io/404.html">
+<link rel="canonical" href="https://rishabhdahale.github.io/blog/2024/music_gen/">
 
 
 <!-- Dark Mode -->
@@ -80,7 +80,7 @@
           </li>
           
           <!-- Blog -->
-          <li class="nav-item ">
+          <li class="nav-item active">
             <a class="nav-link" href="/blog/">
               Blog
               
@@ -157,17 +157,90 @@
     <!-- Content -->
 
     <div class="container mt-5">
-      <div class="post">
+      
+
+
+
+
+
+<div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">Page not found</h1>
-    <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
+    <h1 class="post-title">Exploring the Future of Music with AI - My Journey into Automatic Drum Accompaniment Generation</h1>
+    <p class="post-meta">August 13, 2024</p>
+    <p class="post-tags">
+      <a href="/blog/2024"> <i class="fas fa-calendar fa-sm"></i> 2024 </a>
+      
+
+      
+
+    </p>
   </header>
 
-  <article>
-    <p>You will be redirected to the main page within 3 seconds. If not redirected, please click <a href="https://rishabhdahale.github.io/">here</a>.</p>
+  <article class="post-content">
+    <h1> Introduction </h1>
+
+<p>As a technology enthusiast and music lover, I’ve always been intrigued by the idea of combining these two passions. The notion that artificial intelligence could assist in composing music—or even generate it autonomously—has captivated me for years. This curiosity led me to undertake a project that blends AI with music: Automatic Drum Accompaniment Generation from Melody.</p>
+
+<p>In this blog post, I want to take you through my journey of creating a system that generates drum patterns for a given melody. This project challenged my technical skills and pushed the boundaries of what I believed AI could achieve in the realm of creativity.</p>
+
+<p><img src="/assets/img/posts/music_gen/drum_set_1.webp" alt="Drum set" style="width:300px; align-content: center;"></p>
+
+<!-- *Add Image: A creative image of musical notes, drums, or a combination of AI and music symbols.* -->
+
+<h1> Challenges </h1>
+
+<p>Music composition is not just about arranging notes; it’s about emotion, rhythm, and creativity. Drummers, for instance, do more than just keep time—they add flavor to the music, making it dynamic and engaging. The challenge I faced was teaching an AI to replicate this human creativity. How could I develop a system that not only understands the structure of music but also adds those subtle yet impactful drum fills and improvisations?</p>
+
+<!-- *Add Image: An image showing a drummer playing with a band, highlighting the complexity of drum patterns.* -->
+
+<h1> Approach </h1>
+
+<p>To address this challenge, I turned to the Transformer model—a neural network architecture that’s revolutionizing natural language processing and, increasingly, music generation. My goal was to create a system that could take a melody played by instruments like Piano, Guitar, Bass, and Strings, and generate an accompanying drum pattern.</p>
+
+<p>The initial attempts were promising but not perfect. While the model could generate basic drum patterns that aligned with the melody, it struggled with the creative aspects—particularly with generating fills and improvisations that are so crucial in drumming.</p>
+
+<!-- *Add Image: A visual representation of a Transformer model or a diagram showing the sequence-to-sequence architecture.* -->
+<!-- <img src="/assets/img/posts/music_gen/System-overview.png" alt="Drum set" style="height:300px; align-content: center;"> -->
+
+<h1> Innovating with BERT-Inspired Models </h1>
+
+<p>Realizing that traditional Transformer models had limitations, I decided to experiment with a BERT-inspired approach. BERT, a model originally designed for natural language processing, excels at understanding context and filling in gaps. This inspired me to create a “novelty function” to detect and quantify the extent of improvisation in a drum pattern relative to its neighboring bars.</p>
+
+<p>By training the model to recognize these moments of creativity and then using an in-filling technique, I was able to generate more dynamic and musically coherent drum patterns. This approach was key in moving beyond simple repetition and into the realm of true musical expression.</p>
+
+<!-- *Add Image: A diagram or flowchart showing the BERT-inspired in-filling approach and how it integrates with the drum generation process.* -->
+
+<h1> Evaluating Results </h1>
+
+<p>Evaluating AI-generated music is a complex task, combining both objective metrics and subjective opinions. Objectively, I measured the rhythmic consistency, distribution of drum hits, and other musical patterns. Subjectively, I sought feedback from musicians to assess the musicality of the generated patterns.</p>
+
+<p>The results were encouraging. The model managed to maintain the groove while introducing subtle variations that made the drum patterns more engaging. While not perfect, the AI’s output was a significant step forward in achieving a balance between structure and creativity in music generation.</p>
+
+<!-- *Add Image: A side-by-side comparison of a basic drum pattern and a generated pattern with fills/improvisations, possibly using a visual representation like a pianoroll or waveform.* -->
+
+<h1> Reflection and Future Directions </h1>
+
+<p>This project has been a significant learning experience, showing me both the potential and the limitations of AI in music. It reinforced my belief that while AI can assist in the creative process, it still requires guidance and input from humans to reach its full potential.</p>
+
+<p>Moving forward, I plan to explore more advanced data augmentation techniques and experiment with different architectures to improve the model’s ability to generate creative drum fills and improvisations. Additionally, I’m interested in expanding this work to other musical genres or even developing an interactive system that can collaborate with musicians in real-time.</p>
+
+<!-- *Add Image: An image that represents future technology or innovation, possibly something symbolic like a road leading into the horizon or a futuristic city.* -->
+
+<h1> Conclusion </h1>
+
+<p>In conclusion, my journey into automatic drum accompaniment generation has been a rewarding blend of creativity and technology. It’s a project that has pushed me to think differently about both music and AI, and I’m excited to see where this path leads in the future. If you’re interested in the technical details or want to try out the model for yourself, feel free to reach out—I’d love to share more about this exciting field of research.</p>
+
+<p>Thank you for reading, and I hope this glimpse into my project has sparked your curiosity about the potential of AI in music. Stay tuned for more updates as I continue to explore the fascinating world of music generation.</p>
+
+<!-- *Add Image: A summary image or infographic that encapsulates the journey from challenge to solution, possibly with a combination of music and AI elements.* -->
+
+<p>You can find the <a href="https://rishabhdahale.github.io/assets/pdf/DDP_Stage_2_Report.pdf">thesis</a> here.</p>
+
 
   </article>
+
+  
 
 </div>
 
